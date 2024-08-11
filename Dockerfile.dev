@@ -1,0 +1,9 @@
+FROM node:22.6.0-alpine3.20
+RUN addgroup -S nodeapi && adduser -S -G nodeapi nodeapi
+USER nodeapi
+WORKDIR /api/
+COPY --chown=nodeapi package*.json ./
+RUN npm install
+COPY --chown=nodeapi . .
+EXPOSE 3000
+CMD ["npm", "run", "dev"]

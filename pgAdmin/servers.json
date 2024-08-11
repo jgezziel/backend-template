@@ -1,0 +1,16 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "PostgreSQl",
+      "Group": "Servers",
+      "Port": 5432,
+      "Host": "cont_db_api",
+      "Username": "jgezziel",
+      "Password": "635jgezziel131",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres",
+      "favorite": true,
+      "Comment": "This is a database server for the API"
+    }
+  }
+}
