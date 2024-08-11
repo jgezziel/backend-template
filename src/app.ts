@@ -4,6 +4,7 @@ import corsMiddleware from "./middlewares/cors";
 import morgan from "morgan";
 // import routes
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 
 const app: Application = express();
 
@@ -29,6 +30,7 @@ app.get(`${apiVersion}/`, (_req, res) => {
 });
 
 app.use(`${apiVersion}/users`, userRoutes);
+app.use(`${apiVersion}/auth`, authRoutes);
 
 // export constants
 export const PORT: string = app.get("port");

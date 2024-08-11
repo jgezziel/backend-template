@@ -7,7 +7,7 @@ import {
   DefaultScope,
 } from "sequelize-typescript";
 import { type Optional, Op } from "sequelize";
-import type { UserSchema } from "../schemas/user.schema";
+import type { UserLoginSchema, UserSchema } from "../schemas/user.schema";
 import { ensureError } from "../utils";
 import config from "../config";
 import bcrypt from "bcrypt";
@@ -180,8 +180,50 @@ const createUser = async (user: UserSchema) => {
   }
 };
 
+const login = async (login: UserLoginSchema) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email: login.email,
+      },
+      attributes: {
+        include: ["password"],
+      },
+    });
+
+    if (!user) {
+      return {
+        message: "User not found",
+        success: false,
+      };
+    }
+
+    const isPasswordValid = await bcrypt.compare(login.password, user.password);
+    if (!isPasswordValid) {
+      return {
+        message: "Invalid password",
+        success: false,
+      };
+    }
+
+    const { password, ...userWithoutPassword } = user.toJSON();
+
+    return {
+      data: userWithoutPassword,
+      message: "User logged in",
+      success: true,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: ensureError(error),
+    };
+  }
+};
+
 export const UserModel = {
   readUsers,
   getUserById,
   createUser,
+  login,
 };

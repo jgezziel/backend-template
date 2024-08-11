@@ -71,6 +71,7 @@ const User = z.object({
 
 const UserPartial = User.partial();
 const NoIDUser = User.omit({ id: true, status: true });
+const Login = User.pick({ email: true, password: true });
 
 export const validateUser = (object: unknown) => {
   return NoIDUser.safeParse(object);
@@ -80,7 +81,9 @@ export const validateUserPartial = (object: unknown) => {
   return User.partial().safeParse(object);
 };
 
-
+export const validateLogin = (object: unknown) => {
+  return Login.safeParse(object);
+};
 /*
 export const encryptPassword = async (password: string): Promise<string> => {
   return await bcrypt.hash(password, 10)
@@ -92,5 +95,4 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 
 export type UserSchema = z.infer<typeof User>;
 export type UserPartialSchema = z.infer<typeof UserPartial>;
-
-export type NoIDUserSchema = z.infer<typeof NoIDUser>;
+export type UserLoginSchema = z.infer<typeof Login>;
