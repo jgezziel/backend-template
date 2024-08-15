@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import type { Dialect } from "sequelize";
-import config from "../config";
+import config from "config";
 
 const db = new Sequelize(
   config.db.database,

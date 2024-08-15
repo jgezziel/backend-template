@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { UserModel } from "../models/User";
-import { validateLogin } from "../schemas/user.schema";
+import { UserModel } from "@models/User";
+import { validateLogin } from "@schemas/user.schema";
 
 const login = async (req: Request, res: Response) => {
   try {

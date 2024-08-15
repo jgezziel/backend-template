@@ -1,10 +1,10 @@
 import express, { type Application, json } from "express";
-import config from "./config";
-import corsMiddleware from "./middlewares/cors";
+import config from "config";
+import corsMiddleware from "@middlewares/cors";
 import morgan from "morgan";
 // import routes
-import userRoutes from "./routes/user.routes";
-import authRoutes from "./routes/auth.routes";
+import userRoutes from "@routes/user.routes";
+import authRoutes from "@routes/auth.routes";
 
 const app: Application = express();
 

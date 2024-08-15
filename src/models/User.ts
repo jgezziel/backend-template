@@ -7,9 +7,9 @@ import {
   DefaultScope,
 } from "sequelize-typescript";
 import { type Optional, Op } from "sequelize";
-import type { UserLoginSchema, UserSchema } from "../schemas/user.schema";
+import type { UserLoginSchema, UserSchema } from "@schemas/user.schema";
 import { ensureError } from "../utils";
-import config from "../config";
+import config from "config";
 import bcrypt from "bcrypt";
 
 interface UserCreationAttributes extends Optional<UserSchema, "id"> {}

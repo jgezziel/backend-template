@@ -1,5 +1,5 @@
 import cors from "cors";
-import config from "../config";
+import config from "config";
 
 const allowedOrigins: string[] = config.cors.allowedOrigins;
 
