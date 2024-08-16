@@ -13,6 +13,7 @@
       "@routes/*": ["routes/*"],
       "@controllers/*": ["controllers/*"],
       "@middlewares/*": ["middlewares/*"],
+      "@services/*": ["services/*"],
       "@models/*": ["models/*"],
       "@schemas/*": ["schemas/*"]
     },

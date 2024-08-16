@@ -1,4 +1,5 @@
 import express, { type Application, json } from "express";
+import cookieParser from "cookie-parser";
 import config from "config";
 import corsMiddleware from "@middlewares/cors";
 import morgan from "morgan";
@@ -15,6 +16,7 @@ app.disable("x-powered-by");
 
 //Middlewares
 app.use(json());
+app.use(cookieParser());
 app.use(corsMiddleware({ acceptedOrigins: config.cors.acceptedOrigins })); // CORS
 app.use(morgan("dev"));
 
