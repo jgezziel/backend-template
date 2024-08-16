@@ -14,4 +14,7 @@ export default {
     dialect: process.env.DB_DIALECT || "postgres",
   },
   bcryptSalt: process.env.BCRYPT_SALT || 10,
+  jwtSecret: process.env.JWT_SECRET || "@En_todo_el_final_es_importante@",
+  jwtExpiration: process.env.JWT_EXPIRATION || "1h",
+  cookieExpiration: 1000 * 60 * 60,
 };
