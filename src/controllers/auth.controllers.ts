@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { UserModel } from "@models/User";
 import { validateLogin } from "@schemas/user.schema";
+import config from "config";
 
 const login = async (req: Request, res: Response) => {
   try {
@@ -32,11 +33,33 @@ const login = async (req: Request, res: Response) => {
       });
     }
 
-    return res.status(200).json({
+    return res
+      .status(200)
+      .cookie("access_token", login.token, {
+        httpOnly: true,
+        sameSite: "strict",
+        maxAge: config.cookieExpiration,
+      })
+      .json({
+        code: 200,
+        success: true,
+        message: login.message,
+      });
+  } catch (error) {
+    return res.status(500).json({
+      code: 500,
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+const logout = async (_req: Request, res: Response) => {
+  try {
+    return res.status(200).clearCookie("access_token").json({
       code: 200,
       success: true,
-      message: login.message,
-      data: login.data,
+      message: "User logged out",
     });
   } catch (error) {
     return res.status(500).json({
@@ -49,6 +72,7 @@ const login = async (req: Request, res: Response) => {
 
 const authController = {
   login,
+  logout,
 };
 
 export default authController;

@@ -11,6 +11,7 @@ import type { UserLoginSchema, UserSchema } from "@schemas/user.schema";
 import { ensureError } from "../utils";
 import config from "config";
 import bcrypt from "bcrypt";
+import createToken from "@services/auth.services";
 
 interface UserCreationAttributes extends Optional<UserSchema, "id"> {}
 
@@ -208,10 +209,12 @@ const login = async (login: UserLoginSchema) => {
 
     const { password, ...userWithoutPassword } = user.toJSON();
 
+    const token = createToken(userWithoutPassword);
+
     return {
-      data: userWithoutPassword,
       message: "User logged in",
       success: true,
+      token,
     };
   } catch (error) {
     return {
