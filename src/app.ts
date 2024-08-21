@@ -15,10 +15,10 @@ app.set("apiURL", config.port + config.apiVersion);
 app.disable("x-powered-by");
 
 //Middlewares
-app.use(json());
-app.use(cookieParser());
 app.use(corsMiddleware({ acceptedOrigins: config.cors.acceptedOrigins })); // CORS
-app.use(morgan("dev"));
+app.use(cookieParser());
+app.use(json());
+app.use(morgan("dev"));// Logger
 
 const apiVersion = config.apiVersion;
 
