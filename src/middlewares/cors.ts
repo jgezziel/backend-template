@@ -19,6 +19,7 @@ const corsMiddleware = ({ acceptedOrigins = allowedOrigins } = {}) =>
 
       return callback(null, true);
     },
+    credentials: true,
   });
 
 export default corsMiddleware;

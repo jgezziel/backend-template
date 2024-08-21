@@ -37,7 +37,8 @@ const login = async (req: Request, res: Response) => {
       .status(200)
       .cookie("access_token", login.token, {
         httpOnly: true,
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         maxAge: config.cookieExpiration,
       })
       .json({
