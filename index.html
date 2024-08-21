@@ -6,6 +6,32 @@
     <title>API CORS VERIFIED</title>
   </head>
   <body>
+    <form>
+      <legend>Login</legend>
+      <p>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="username"
+        />
+      </p>
+      <p>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="password"
+        />
+      </p>
+      <button id="login" type="submit">Login</button>
+    </form>
+    <hr />
+    <form>
+      <legend>Logout</legend>
+      <button id="logout" type="submit">Logout</button>
+    </form>
+
     <h1>API CORS VERIFIED</h1>
     <script>
       const helloAPI = async () => {
@@ -20,7 +46,72 @@
         }
       };
 
-      helloAPI();
+      // helloAPI();
+
+      const login = () => {
+        const send = document.getElementById("login");
+        send.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          const data = {
+            username,
+            password,
+          };
+
+          fetch("http://localhost:3000/api/v1/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            credentials: "include",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Success:", data);
+              if (data.success) {
+                alert("Login success");
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+      };
+      login();
+
+      const logout = () => {
+        const send = document.getElementById("logout");
+        send.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          fetch("http://localhost:3000/api/v1/auth/logout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Success:", data);
+              if (data.success) {
+                alert("Logout success");
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+      };
+      logout();
     </script>
   </body>
 </html>
