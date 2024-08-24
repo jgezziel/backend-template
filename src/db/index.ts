@@ -10,7 +10,7 @@ const db = new Sequelize(
     host: config.db.host,
     dialect: config.db.dialect as Dialect,
     logging: console.log,
-    models: [`${__dirname}/../models/**/*.ts`],
+    models: [`${__dirname}/../models`],
   }
 );
 
