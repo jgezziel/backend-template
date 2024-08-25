@@ -1,7 +1,13 @@
 node_modules/
 build/
+Dockerfile*
+docker-compose*
+.dockerignore
 .git
+.gitignore
+README.md
+LICENSE
+.vscode
 .env
-*/docker-compose*
-*/Dockerfile*
-*.md
+.editorconfig
+.idea

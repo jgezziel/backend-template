@@ -4,9 +4,9 @@
   "description": "backend template for nodejs and API",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --clear -r tsconfig-paths/register src/index.ts",
-    "build": "npx tsc --project tsconfig.json && tsc-alias -p tsconfig.json && echo 'build done'",
-    "build:start": "npm run build && node build/index.js",
+    "bun:dev": "bun --hot -r tsconfig-paths/register src/index.ts",
+    "bun:build": "bunx tsc --project tsconfig.json && tsc-alias -p tsconfig.json && echo 'Build done'",
+    "bun:prod": "bun bun:build && bun build/index.js",
     "docker:compose-dev": "docker compose -f docker-compose.dev.yml up"
   },
   "keywords": [
