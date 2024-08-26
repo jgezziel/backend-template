@@ -12,7 +12,7 @@ import type { Optional } from "sequelize";
 import type { SessionSchema } from "@schemas/session.schema";
 import User from "./User";
 import type { UserLoginSchema } from "@schemas/user.schema";
-import createToken from "@services/auth.services";
+import { createToken, verifyToken } from "@services/auth.services";
 import { ensureError } from "../utils";
 import bcrypt from "bcrypt";
 
@@ -113,11 +113,33 @@ const login = async (login: UserLoginSchema) => {
     if (existSession) {
       const token = existSession.token;
 
-      return {
-        message: "User logged in",
-        success: true,
-        token,
-      };
+      try {
+        verifyToken(token);
+        return {
+          message: "User logged in",
+          success: true,
+          token,
+        };
+      } catch (err) {
+        const finallySession = await Session.update(
+          { status: "inactive" },
+          {
+            where: { token },
+          }
+        );
+
+        if (!finallySession) {
+          return {
+            message: "Session could not be logged out",
+            success: false,
+          };
+        }
+
+        return {
+          message: "Session expired",
+          success: false,
+        };
+      }
     }
 
     const token = createToken(userWithoutPassword);
