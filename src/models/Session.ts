@@ -80,7 +80,7 @@ const login = async (login: UserLoginSchema) => {
   try {
     const user = await User.findOne({
       where: {
-        email: login.email,
+        username: login.username,
       },
       attributes: {
         include: ["password"],
@@ -119,6 +119,7 @@ const login = async (login: UserLoginSchema) => {
           message: "User logged in",
           success: true,
           token,
+          user: userWithoutPassword,
         };
       } catch (err) {
         const finallySession = await Session.update(
@@ -159,6 +160,7 @@ const login = async (login: UserLoginSchema) => {
       message: "User logged in",
       success: true,
       token,
+      user: userWithoutPassword,
     };
   } catch (error) {
     return {

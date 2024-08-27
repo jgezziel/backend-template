@@ -45,6 +45,10 @@ const login = async (req: Request, res: Response) => {
         code: 200,
         success: true,
         message: login.message,
+        data: {
+          user: login.user,
+          token: login.token,
+        },
       });
   } catch (error) {
     return res.status(500).json({
@@ -57,7 +61,7 @@ const login = async (req: Request, res: Response) => {
 
 const logout = async (req: Request, res: Response) => {
   try {
-    const { access_token } = req.cookies;
+    const { authorization: access_token } = req.headers;
     if (!access_token) {
       return res.status(400).json({
         code: 400,

@@ -71,7 +71,7 @@ const User = z.object({
 
 const UserPartial = User.partial();
 const NoIDUser = User.omit({ id: true, status: true });
-const Login = User.pick({ email: true, password: true });
+const Login = User.pick({ username: true, password: true });
 
 export const validateUser = (object: unknown) => {
   return NoIDUser.safeParse(object);
