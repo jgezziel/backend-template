@@ -6,6 +6,7 @@ import morgan from "morgan";
 // import routes
 import userRoutes from "@routes/user.routes";
 import authRoutes from "@routes/auth.routes";
+import categoryRoutes from "@routes/category.routes";
 
 const app: Application = express();
 
@@ -18,7 +19,7 @@ app.disable("x-powered-by");
 app.use(corsMiddleware({ acceptedOrigins: config.cors.acceptedOrigins })); // CORS
 app.use(cookieParser());
 app.use(json());
-app.use(morgan("dev"));// Logger
+app.use(morgan("dev")); // Logger
 
 const apiVersion = config.apiVersion;
 
@@ -33,6 +34,7 @@ app.get(`${apiVersion}/`, (_req, res) => {
 
 app.use(`${apiVersion}/users`, userRoutes);
 app.use(`${apiVersion}/auth`, authRoutes);
+app.use(`${apiVersion}/categories`, categoryRoutes);
 
 // export constants
 export const PORT: string = app.get("port");
