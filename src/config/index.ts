@@ -10,7 +10,7 @@ export default {
     username: process.env.DB_USER || "jgezziel",
     password: process.env.DB_PASS || "635jgezziel131",
     database: process.env.DB_NAME || "api_db",
-    host: process.env.DB_HOST || "localhost",
+    host: process.env.DB_HOST || "cont_db_api",
     dialect: process.env.DB_DIALECT || "postgres",
   },
   bcryptSalt: process.env.BCRYPT_SALT || 10,
