@@ -7,6 +7,7 @@ import morgan from "morgan";
 import userRoutes from "@routes/user.routes";
 import authRoutes from "@routes/auth.routes";
 import categoryRoutes from "@routes/category.routes";
+import companyRoutes from "@routes/company.routes";
 
 const app: Application = express();
 
@@ -25,16 +26,17 @@ const apiVersion = config.apiVersion;
 
 //Routes
 app.get(`${apiVersion}/`, (_req, res) => {
-  res.status(200).json({
-    success: true,
-    code: 200,
-    message: "Welcome to the API",
-  });
+	res.status(200).json({
+		success: true,
+		code: 200,
+		message: "Welcome to the API",
+	});
 });
 
 app.use(`${apiVersion}/users`, userRoutes);
 app.use(`${apiVersion}/auth`, authRoutes);
 app.use(`${apiVersion}/categories`, categoryRoutes);
+app.use(`${apiVersion}/companies`, companyRoutes);
 
 // export constants
 export const PORT: string = app.get("port");
